@@ -1,0 +1,18 @@
+[MAIN]
+# rdkit.Chem is a compiled C extension; pylint can't statically discover its
+# members, so let it import and introspect the module at runtime instead.
+extension-pkg-allow-list =
+    rdkit.Chem
+
+[DESIGN]
+# Several of the reader/writer/fragment functions here naturally take more
+# than the default 5 parameters (file format options, column indices, ...).
+max-args = 8
+max-positional-arguments = 8
+
+[messages control]
+disable =
+    consider-using-f-string,
+    too-many-branches,
+    too-many-locals,
+    too-many-statements
