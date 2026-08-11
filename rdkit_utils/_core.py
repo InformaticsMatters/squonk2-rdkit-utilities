@@ -79,7 +79,14 @@ class SmilesWriter:
         self.extra_field_names = extra_field_names
 
         self.id_column = None if id_column is None else int(id_column)
-        self.mol_column = None if mol_column is None else int(mol_column)
+        # Mirror SmilesReader's inference, so a writer built from the same
+        # arguments as its reader lays the columns out the same way. write()
+        # orders the ID and SMILES columns by comparing the two, so this must
+        # not be left as None.
+        if mol_column is None:
+            self.mol_column = 1 if self.id_column == 0 else 0
+        else:
+            self.mol_column = int(mol_column)
 
     def write_header(self, values):
         """Write a header line built from the given column names."""
