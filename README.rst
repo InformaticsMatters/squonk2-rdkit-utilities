@@ -95,10 +95,16 @@ The group's namespace feeds ``create_reader()`` directly::
     ...     read_records=args.read_records,
     ... )
 
-``--infile`` and ``--outfile`` are the canonical spellings; ``--input`` and
-``--output`` are retained as aliases so that adopting the helper does not break
-existing Job manifests. The parsed values are always available as
-``args.input`` and ``args.output``.
+``--infile`` and ``--outfile`` are the canonical long spellings. The parsed
+values are always available as ``args.input`` and ``args.output``.
+
+``--input`` and ``--output`` are **deprecated aliases**, retained only so that
+adopting the helper did not break existing Job manifests. They are due to be
+removed — see `issue #5
+<https://github.com/InformaticsMatters/squonk2-rdkit-utilities/issues/5>`_. Job
+Definitions should invoke ``-i``/``-o``: they are canonical, unaffected by that
+removal, and work against container images built before the Job adopted the
+helper.
 
 Defaults follow the ``create_reader()`` / ``create_writer()`` signatures rather
 than the values the Job scripts hand-type today — in particular ``--mol-column``
