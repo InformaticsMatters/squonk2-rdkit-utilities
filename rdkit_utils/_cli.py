@@ -47,10 +47,14 @@ def add_common_molecule_io_args(
     ``--read-records`` and ``-k/--omit-fields``; ``--y-column`` is added when
     *include_y_column* is set.
 
-    ``--infile`` and ``--outfile`` are the canonical spellings. ``--input`` and
-    ``--output`` are accepted as aliases so that adopting this helper does not
-    break existing Job manifests, and the parsed values remain available as
-    ``args.input`` and ``args.output``.
+    ``--infile`` and ``--outfile`` are the canonical long spellings, and the
+    parsed values are always available as ``args.input`` and ``args.output``.
+
+    ``--input`` and ``--output`` are **deprecated aliases**, kept only so that
+    adopting this helper did not break existing Job manifests. They are due to
+    be removed — see issue #5. Job Definitions should invoke ``-i``/``-o``,
+    which are canonical, unaffected by that removal, and work against container
+    images built before the Job adopted this helper.
 
     The defaults deliberately match the ``create_reader()`` / ``create_writer()``
     signatures rather than the values the Job scripts hand-type today:
