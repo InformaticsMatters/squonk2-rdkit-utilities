@@ -65,7 +65,52 @@ Public surface
   alongside the readers/writers above; the job-utilities function remains
   the natural home for pure string manipulation with no RDKit dependency.
 
+Command-line helpers
+====================
+
+- ``add_common_molecule_io_args(parser)`` — adds the "Input/output options"
+  argument group shared by the molecule processing Jobs (``-i/--infile``,
+  ``-o/--outfile``, ``-d/--delimiter``, ``--id-column``, ``--mol-column``,
+  ``--read-header``, ``--write-header``, ``--read-records``,
+  ``-k/--omit-fields``, and optionally ``--y-column``), and returns the group
+  so more options can be added to it. Keyword arguments ``output_default``,
+  ``output_required`` and ``include_y_column`` cover the variations between
+  Jobs.
+- ``str_or_int()`` — an argparse ``type`` for a column specifier given either
+  as a zero-based index or as a field name.
+
+The group's namespace feeds ``create_reader()`` directly::
+
+    >>> import argparse, rdkit_utils
+    >>> from dm_job_utilities.utils import read_delimiter
+    >>> parser = argparse.ArgumentParser()
+    >>> _ = rdkit_utils.add_common_molecule_io_args(parser)
+    >>> args = parser.parse_args(['-i', 'molecules.smi', '-d', 'tab'])
+    >>> reader = rdkit_utils.create_reader(
+    ...     args.input,
+    ...     delimiter=read_delimiter(args.delimiter),
+    ...     read_header=args.read_header,
+    ...     id_column=args.id_column,
+    ...     mol_column=args.mol_column,
+    ...     read_records=args.read_records,
+    ... )
+
+``--infile`` and ``--outfile`` are the canonical spellings; ``--input`` and
+``--output`` are retained as aliases so that adopting the helper does not break
+existing Job manifests. The parsed values are always available as
+``args.input`` and ``args.output``.
+
+Defaults follow the ``create_reader()`` / ``create_writer()`` signatures rather
+than the values the Job scripts hand-type today — in particular ``--mol-column``
+defaults to ``None`` so that ``SmilesReader`` can infer it, where most Jobs
+currently pass an explicit ``0``.
+
+Progress and cost reporting (``--interval``, ``ProgressReporter``) is
+deliberately **not** here — that is a Data Manager logging concern and lives in
+`im-data-manager-job-utilities`_.
+
 .. _PyPI: https://pypi.org/project/im-rdkit-utilities
+.. _im-data-manager-job-utilities: https://pypi.org/project/im-data-manager-job-utilities
 
 Get in touch
 ============

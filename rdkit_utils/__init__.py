@@ -5,6 +5,7 @@ flat ``import rdkit_utils`` / ``rdkit_utils.create_reader(...)`` style that
 predates this package.
 """
 
+from rdkit_utils._cli import add_common_molecule_io_args, str_or_int
 from rdkit_utils._core import (
     ID_COL_NAME,
     SMILES_COL_NAME,
@@ -36,6 +37,7 @@ __all__ = [
     "SdfWriter",
     "SmilesReader",
     "SmilesWriter",
+    "add_common_molecule_io_args",
     "check_molecules_are_3d",
     "create_reader",
     "create_writer",
@@ -50,5 +52,6 @@ __all__ = [
     "rdk_read_mols",
     "rdk_read_single_mol",
     "sdf_record_gen",
+    "str_or_int",
     "updateChargeFlagInAtomBlock",
 ]
