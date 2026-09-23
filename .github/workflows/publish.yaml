@@ -10,8 +10,8 @@ name: publish
 # At the GitHub 'organisation' or 'project' level you must have the following
 # GitHub 'Repository Secrets' defined (i.e. via 'Settings -> Secrets'): -
 #
-# PYPI_USERNAME
-# PYPI_TOKEN
+# (none - we publish to PyPI with trusted publishing, which uses the
+#  'id-token: write' permission below rather than a username and token)
 #
 # -----------
 # Environment (GitHub Environments)
@@ -46,6 +46,6 @@ jobs:
     - name: Build
       run: |
         pyroma .
-        python setup.py bdist_wheel
+        python -m build
     - name: Publish
       uses: pypa/gh-action-pypi-publish@release/v1
