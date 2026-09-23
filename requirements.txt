@@ -1,2 +1,2 @@
-rdkit == 2025.9.1
+rdkit >= 2026.3.6
 im-data-manager-job-utilities >= 1.3.0
