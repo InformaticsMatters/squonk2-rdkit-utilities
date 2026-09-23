@@ -1,1 +1,4 @@
 include LICENSE
+# setup.py reads this to populate install_requires, so the sdist needs it
+# to be buildable (and therefore installable) on its own.
+include requirements.txt

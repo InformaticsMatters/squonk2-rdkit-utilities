@@ -1,0 +1,5 @@
+# The build system. The project metadata still lives in setup.py, which
+# takes the package version from GITHUB_REF_SLUG at publish time.
+[build-system]
+requires = ["setuptools >= 77"]
+build-backend = "setuptools.build_meta"

@@ -58,4 +58,4 @@ jobs:
         mypy rdkit_utils --install-types --non-interactive
     - name: Build
       run: |
-        python setup.py bdist_wheel
+        python -m build
