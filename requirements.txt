@@ -1,2 +1,8 @@
-rdkit >= 2026.3.6
+# The code uses only long-stable RDKit APIs (ForwardSDMolSupplier, GetMolFrags,
+# FindMolChiralCenters, RWMol, Descriptors.MolWt, ...), so the floor only needs
+# to be low enough for legacy-environment job branches that pin an old RDKit to
+# reproduce pre-trained models' descriptors (e.g. rdkit 2023.9.6). Note that
+# RDKit descriptor *values* vary between releases, so a job that must reproduce
+# a specific model should pin an exact RDKit, not rely on this floor.
+rdkit >= 2023.9.6
 im-data-manager-job-utilities >= 1.3.0
